@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -26,7 +26,7 @@ model User {
 model Project {
   id          Int      @id @default(autoincrement())
   name        String
-  description String?
+  description String?  @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   creatorId   Int
@@ -53,14 +53,14 @@ model ProjectMember {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   title       String
-  description String?
-  status      String   @default("TODO")
-  priority    String   @default("MEDIUM")
+  description String?    @db.Text
+  status      String     @default("TODO")
+  priority    String     @default("MEDIUM")
   dueDate     DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   projectId   Int
   assignedTo  Int?
 
