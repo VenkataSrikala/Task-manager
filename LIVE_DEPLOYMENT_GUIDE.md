@@ -45,10 +45,10 @@
    - **Build Command:** `npm install && npx prisma generate && npx prisma migrate deploy`
    - **Start Command:** `npm start`
 
-#### 2.3 Add MySQL Database
+#### 2.3 Add PostgreSQL Database
 1. In your project, click **"New"**
-2. Select **"Database"** → **"Add MySQL"**
-3. Railway will provision a MySQL database
+2. Select **"Database"** → **"Add PostgreSQL"**
+3. Railway will provision a PostgreSQL database
 4. Copy the **DATABASE_URL** (it's automatically generated)
 
 #### 2.4 Set Environment Variables
@@ -57,7 +57,7 @@
 3. Add these variables:
 
 ```env
-DATABASE_URL=${{MySQL.DATABASE_URL}}
+DATABASE_URL=${{Postgres.DATABASE_URL}}
 JWT_SECRET=your-super-secure-production-secret-key-min-32-characters
 PORT=5000
 NODE_ENV=production
@@ -119,7 +119,7 @@ VITE_API_URL=https://your-backend.railway.app/api
 
 **Frontend:** https://your-frontend.railway.app  
 **Backend:** https://your-backend.railway.app  
-**Database:** MySQL on Railway
+**Database:** PostgreSQL on Railway
 
 ---
 
@@ -180,27 +180,11 @@ Follow Step 2 from Option 1 above.
 
 ---
 
-## 🔧 Important: Update Prisma Schema for Production
+## 🔧 Important: Database is PostgreSQL
 
-Before deploying, you need to switch from SQLite to MySQL:
+Your project is now configured to use **PostgreSQL** (simpler and more common for deployment).
 
-### Update `backend/prisma/schema.prisma`:
-
-```prisma
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-}
-```
-
-Then commit and push:
-```bash
-git add backend/prisma/schema.prisma
-git commit -m "Update database to MySQL for production"
-git push
-```
-
-Railway will auto-deploy the changes!
+Railway will automatically provide a PostgreSQL database when you add it to your project.
 
 ---
 
